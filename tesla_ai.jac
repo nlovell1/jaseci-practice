@@ -1,3 +1,5 @@
+import {*} with "./ai_model.jac";
+
 node dialogue_root;
 
 node dialogue_state:cai_state {
