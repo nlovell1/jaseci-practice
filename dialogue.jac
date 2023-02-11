@@ -73,7 +73,7 @@ graph dialogue_system {
 
 walker init {
     root {
-        spawn here ++> graph::dialogue_system;
+        spawn here ++> graph::tesla_ai;
         spawn here walker::talk;
     }
 }
@@ -85,6 +85,11 @@ walker talk {
     root {
         take --> node::dialogue_root;
     }
+    cai_state {
+        if (!question) {
+            question = std.input("Question (Ctrl-C to exit)> ");
+            here::init_wlk_ctx;
+        }
     dialogue_state {
         if (!question) {
             question = std.input("Question (Ctrl-C to exit)> ");
@@ -100,6 +105,7 @@ walker talk {
         } else {
             take visitor.wlk_ctx["next_state"] else: take here;
         }
+    }
     }
 }
 
